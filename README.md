@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is an opinionated nextjs project template using prisma and next-auth. Credential authentication is setup by default.
 
 ## Getting Started
 
-First, run the development server:
+First, install required dependencies
 
-```bash
+npm install 
+
+## Setup postgres database
+
+To setup locally:
+
+psql postgres
+
+CREATE DATABASE app_database_name;
+
+Now create .env file and allocate the following environment variables (below are example secrets, use real secrets for application security):
+
+DATABASE_URL='postgresql://username:password@localhost:5432/app_database_name?schema=public' 
+NEXTAUTH_SECRET='cXzepgoK7OYHb1AhZA9C2dyHOjQPmon5X2q0t2IcOTo=' 
+JWT_SECRET='super-secret' 
+
+## Prisma migration
+
+Back in the standard terminal, initialise the prisma:
+
+npx prisma migrate dev --name init
+npx prisma generate
+
+## Run application
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Pages are grouped by (auth) pages, (dashboard) pages and (public) pages, however this is not opinionated and can be edited as required.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+The base layout.js file provides the AuthProvider and no navbar or topbar components.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Within the (auth) pages, the grid-auth class is applied (from globals.css), and no additional components are provided.
 
-## Learn More
+Within the (dashboard) pages, both a topbar and sidebar is provided for page navigation. These pages can only be accessed when authenticated and will redirect to /login when a user is not authenticated.
 
-To learn more about Next.js, take a look at the following resources:
+(public) pages provided a topbar for basic navigation and site display.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+bcryptjs is used for encryption of passwords before being stored in the postgres database. jwt are used to provide authenticated user sessions.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Within the api routes, auth and register are provided to allow for creation of a user and authentication of a user with an account. A reset-password endpoint is present but is yet to be implemented. Future implementation of password reset functionality will be by email using node mailer.
 
-## Deploy on Vercel
+Some base styles are provided in globals.css
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
