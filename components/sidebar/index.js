@@ -7,13 +7,13 @@ import { Home, BarChart3, Users, Settings, FileText, Calendar, Mail, ChevronLeft
 import { getInitials } from "../getInitials"
 
 const navigationItems = [
-  { name: "Dashboard", href: "/dashboard", icon: Home },
-  { name: "Analytics", href: "/analytics", icon: BarChart3 },
-  { name: "Users", href: "/users", icon: Users },
-  { name: "Documents", href: "/documents", icon: FileText },
-  { name: "Calendar", href: "/calendar", icon: Calendar },
-  { name: "Messages", href: "/messages", icon: Mail },
-  { name: "Settings", href: "/settings", icon: Settings },
+  { name: "Dashboard", href: "/dashboard", icon: "🏠" },
+  { name: "Analytics", href: "/analytics", icon: "📈" },
+  { name: "Users", href: "/users", icon: "🙋‍♂️" },
+  { name: "Documents", href: "/documents", icon: "🗒️" },
+  { name: "Calendar", href: "/calendar", icon: "🗓️" },
+  { name: "Messages", href: "/messages", icon: "📩" },
+  { name: "Settings", href: "/settings", icon: "⚙️" },
 ]
 
 export default function Sidebar({ user }) {
@@ -45,9 +45,7 @@ export default function Sidebar({ user }) {
                 ${collapsed ? "justify-right w-full" : ""}
               `}
             >
-              <Icon
-                className={`w-5 h-5 flex-shrink-0 ${isActive ? "text-blue-600" : "text-gray-500 group-hover:text-gray-700"}`}
-              />
+              <span className="text-xl flex-shrink-0">{item.icon}</span>
 
               {!collapsed && <span className="font-medium">{item.name}</span>}
 
@@ -68,7 +66,6 @@ export default function Sidebar({ user }) {
         })}
       </nav>
 
-      {/* User section at bottom */}
       <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
         <div
           className={`flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors duration-200 cursor-pointer
@@ -86,7 +83,6 @@ export default function Sidebar({ user }) {
           )}
         </div>
       </div>
-      <button onClick={() => setCollapsed(!collapsed)} className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 group" aria-label="Toggle sidebar" > {collapsed ? ( <ChevronRight className="w-4 h-4 text-gray-600 group-hover:text-gray-900" /> ) : ( <ChevronLeft className="w-4 h-4 text-gray-600 group-hover:text-gray-900" /> )} </button>
     </aside>
   )
 }
