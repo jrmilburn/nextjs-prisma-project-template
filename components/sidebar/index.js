@@ -27,32 +27,9 @@ export default function Sidebar({ user }) {
       className={`relative border-r border-gray-200 bg-white transition-all duration-300 ease-in-out h-full
                   ${collapsed ? "w-16" : "w-[var(--sidebar-w)]"}`}
     >
-      {/* Header */}
-      <div className="flex h-16 items-center justify-between px-4 border-b border-gray-200">
-        {!collapsed && (
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">A</span>
-            </div>
-            <span className="font-semibold text-gray-900">App Name</span>
-          </div>
-        )}
-
-        <button
-          onClick={() => setCollapsed(!collapsed)}
-          className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 group"
-          aria-label="Toggle sidebar"
-        >
-          {collapsed ? (
-            <ChevronRight className="w-4 h-4 text-gray-600 group-hover:text-gray-900" />
-          ) : (
-            <ChevronLeft className="w-4 h-4 text-gray-600 group-hover:text-gray-900" />
-          )}
-        </button>
-      </div>
 
       {/* Navigation */}
-      <nav className="p-4 space-y-2">
+      <nav className="p-3 space-y-2">
         {navigationItems.map((item) => {
           const Icon = item.icon
           const isActive = pathname === item.href
@@ -61,11 +38,11 @@ export default function Sidebar({ user }) {
             <Link
               key={item.name}
               href={item.href}
-              className={`flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-all duration-200 group relative
+              className={`flex items-center space-x-3 pl-2 pr-4 py-2.5 rounded-lg transition-all duration-200 group relative
                 ${
                   isActive ? "bg-blue-50 text-blue-700 shadow-sm" : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
                 }
-                ${collapsed ? "justify-center" : ""}
+                ${collapsed ? "justify-right w-full" : ""}
               `}
             >
               <Icon
@@ -109,6 +86,7 @@ export default function Sidebar({ user }) {
           )}
         </div>
       </div>
+      <button onClick={() => setCollapsed(!collapsed)} className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 group" aria-label="Toggle sidebar" > {collapsed ? ( <ChevronRight className="w-4 h-4 text-gray-600 group-hover:text-gray-900" /> ) : ( <ChevronLeft className="w-4 h-4 text-gray-600 group-hover:text-gray-900" /> )} </button>
     </aside>
   )
 }
